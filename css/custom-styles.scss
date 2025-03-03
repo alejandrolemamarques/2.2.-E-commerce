@@ -1,0 +1,13 @@
+// Step 1: Import Bootstrap functions and variables
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// Step 2: Customize Bootstrap variables BEFORE importing components
+
+// Step 3: Import Bootstrap components
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Step 4: Custom styles
+
+
