@@ -93,7 +93,17 @@ function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
+    const total = cart.reduce((sum, cartItem) => {
+        const product = products.find((p) => p.id === cartItem.id);
+        let subtotal = 0;
+        if (cartItem.subtotalWithDiscount) {
+            subtotal = cartItem.subtotalWithDiscount;
+        } else {
+            subtotal = product.price * cartItem.quantity;
+        }
+        return sum + subtotal;
+    }, 0);
+    return total;
 }
 
 // Exercise 4
