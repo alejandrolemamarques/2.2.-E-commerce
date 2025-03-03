@@ -168,7 +168,31 @@ function printCart() {
 
 // Exercise 7
 function removeFromCart(id) {
+    // Find the item in the cart
+    const itemCartIndex = cart.findIndex((item) => item.id === id);
+    const product = products.find((item) => item.id === id);
 
+    // If item not found, return early
+    if (itemCartIndex === -1) return;
+
+    // Get the cart item
+    const itemCart = cart[itemCartIndex];
+    const newQuantity = itemCart.quantity - 1;
+
+    // If quantity will be 0, remove the item completely
+    if (newQuantity === 0) {
+        cart.splice(itemCartIndex, 1);
+    } else {
+        // Otherwise decrease quantity by 1
+        if (product.offer && newQuantity < product.offer.number) {
+            delete itemCart.subtotalWithDiscount;
+        }
+
+        cart[itemCartIndex] = {
+            ...itemCart,
+            quantity: newQuantity,
+        };
+    }
 }
 
 function open_modal() {
