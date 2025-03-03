@@ -109,6 +109,28 @@ function calculateTotal() {
 // Exercise 4
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
+    cart = cart.map((cartItem) => {
+        // Find the corresponding product details for this cart item
+        const product = products.find((p) => p.id === cartItem.id);
+
+        // If product has no offer, return cart item unchanged
+        if (!product.offer) return cartItem;
+
+        // Destructure needed values from product and cart item
+        const { offer, price } = product;
+        const { quantity } = cartItem;
+
+        // If quantity is less than required for offer, return unchanged
+        if (quantity < offer.number) return cartItem;
+
+        const subtotalWithDiscount = Math.round(
+            quantity * price * (1 - offer.percent / 100),
+            2
+        );
+
+        // Return cart item with added subtotal discount field
+        return { ...cartItem, subtotalWithDiscount };
+    });
 }
 
 // Exercise 5
