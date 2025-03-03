@@ -135,7 +135,32 @@ function applyPromotionsCart() {
 
 // Exercise 5
 function printCart() {
+    applyPromotionsCart();
     // Fill the shopping cart modal manipulating the shopping cart dom
+    const cartContainer = document.getElementById("cart_list");
+    const totalPrice = document.getElementById("total_price");
+    cartContainer.innerHTML = "";
+
+    cart.forEach((cartItem) => {
+        const product = products.find((p) => p.id === cartItem.id);
+        let subtotal = 0;
+        if (cartItem.subtotalWithDiscount) {
+            subtotal = cartItem.subtotalWithDiscount;
+        } else {
+            subtotal = product.price * cartItem.quantity;
+        }
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <th scope="row">${product.name}</th>
+            <td>${product.price}</td>
+            <td>${cartItem.quantity}</td>
+            <td>${subtotal}</td>
+        `;
+        cartContainer.appendChild(row);
+    });
+
+    totalPrice.textContent = calculateTotal();
 }
 
 
