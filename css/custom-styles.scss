@@ -4,10 +4,810 @@
 @import "../node_modules/bootstrap/scss/mixins";
 
 // Step 2: Customize Bootstrap variables BEFORE importing components
+$primary: #d6006e; // IT Academy magenta/pink color
+$secondary: #ffffff;
+$header-bg: #d6006e; // Matching the IT Academy header
+$header-text: #ffffff; // White text for contrast
+$button-shadow: #333333; // Shadow color for the 3D button
 
 // Step 3: Import Bootstrap components
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 // Step 4: Custom styles
 
+// Keyframe animation for the pulsing button effect
+@keyframes buttonPulse {
+    0% {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 0 darken($primary, 20%),
+            0 10px 15px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 0 darken($primary, 20%), 0 4px 6px rgba(0, 0, 0, 0.25);
+    }
+    100% {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 0 darken($primary, 20%),
+            0 10px 15px rgba(0, 0, 0, 0.4);
+    }
+}
 
+// 3D Button Effect - Shop Now Button
+#shop-now-btn {
+    position: relative;
+    background-color: $primary;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px; // Rectangular with slightly rounded corners
+    padding: 0.75rem 1.5rem;
+    min-width: 150px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 6px 0 darken($primary, 20%), 0 8px 12px rgba(0, 0, 0, 0.35);
+    transform: translateY(-4px);
+    // Apply the pulsing animation with faster speed
+    animation: buttonPulse 1.5s infinite ease-in-out;
+
+    // Create an outer "socket" effect
+    &::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 8px;
+        background-color: rgba(darken($primary, 30%), 0.3);
+        z-index: -1;
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+
+    &:hover {
+        background-color: lighten($primary, 5%);
+        transform: translateY(-8px) !important;
+        box-shadow: 0 10px 0 darken($primary, 20%),
+            0 12px 20px rgba(0, 0, 0, 0.4) !important;
+        animation-play-state: paused;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+        transform: translateY(2px) !important;
+        box-shadow: 0 2px 0 darken($primary, 20%), 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.01s ease-in-out;
+    }
+}
+
+// Navigation styles
+.navbar {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    padding: 0.75rem 0;
+    background-color: $primary !important;
+
+    .navbar-brand {
+        font-weight: 800;
+        font-size: 1.75rem;
+        color: $primary;
+        letter-spacing: -0.5px;
+        position: relative;
+        padding-bottom: 2px;
+        text-transform: uppercase;
+
+        &:hover {
+            color: darken($primary, 10%);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: $primary;
+            transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+
+        .highlighted {
+            background-color: white;
+            color: $primary;
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            font-weight: 800;
+        }
+    }
+
+    .nav-link {
+        font-weight: 600;
+        padding: 0.5rem 1.25rem;
+        color: white;
+        transition: all 0.2s ease;
+        position: relative;
+        margin: 0 0.25rem;
+
+        &:hover {
+            color: rgba(255, 255, 255, 0.8);
+
+            i {
+                transform: translateY(-2px);
+            }
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        &:hover::after {
+            width: 80%;
+        }
+
+        i {
+            transition: transform 0.3s ease;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .navbar-toggler {
+        border: none;
+        padding: 0.5rem;
+
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        .navbar-toggler-icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
+    }
+
+    .btn-outline-dark {
+        border-radius: 4px;
+        padding: 0.6rem 1.4rem;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        border: none;
+        background-color: white;
+        color: $primary;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: darken(white, 5%);
+        }
+
+        .badge {
+            transition: all 0.3s ease;
+            padding: 0.35em 0.65em;
+            font-size: 0.85em;
+            background-color: $primary;
+            color: white;
+        }
+    }
+}
+
+// Add a sticky effect
+.navbar.sticky-top {
+    background-color: rgba($primary, 0.98) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+// Responsive adjustments
+@include media-breakpoint-down(lg) {
+    .navbar {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+
+        .navbar-collapse {
+            background-color: $primary;
+            padding: 1.25rem;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link {
+            padding: 0.85rem 1.25rem;
+            border-radius: 4px;
+            margin: 0.25rem 0;
+            color: white;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                transform: translateX(5px);
+                color: white;
+            }
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+
+// Header styles - IT Academy inspired
+header.bg-dark {
+    background-color: $header-bg !important;
+    position: relative;
+    overflow: hidden;
+
+    .container {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .display-4 {
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $header-text;
+        position: relative;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+
+        // White background box like in the IT Academy image
+        &.highlighted {
+            background-color: white;
+            color: $primary;
+            padding: 0.5rem 1.5rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+        color: $header-text;
+        line-height: 1.6;
+    }
+
+    // Code-like styling for the "reprogram" text
+    .code-highlight {
+        background-color: white;
+        color: $primary;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-family: monospace;
+        font-weight: 600;
+    }
+
+    // Button styling like in the IT Academy site
+    .btn-primary {
+        background-color: white;
+        color: $primary;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: darken(white, 10%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    header.bg-dark {
+        .display-4 {
+            font-size: 3rem;
+
+            &.highlighted {
+                font-size: 3rem;
+            }
+        }
+    }
+}
+
+// Section Headings
+section {
+    h2 {
+        position: relative;
+        margin-bottom: 2.5rem;
+        font-weight: 700;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: $primary;
+        }
+
+        i {
+            color: $primary;
+        }
+
+        // Add a subtle background to make headings stand out
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            z-index: -1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    &#grocery,
+    &#beauty,
+    &#clothes {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    &#grocery {
+        background-color: #f9f9f9;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23d6006e' fill-opacity='0.03'%3E%3Cpath d='M0 0h20v20H0V0zm40 0h20v20H40V0zm40 0h20v20H80V0zm20 20h20v20h-20V20zM0 40h20v20H0V40zm20 20h20v20H20V60zm20-20h20v20H40V40zm40 0h20v20H80V40zm20 20h20v20h-20V60zM0 80h20v20H0V80zm40 0h20v20H40V80zm40 0h20v20H80V80z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        position: relative;
+
+        &::before {
+            content: "{...}";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 60px;
+            color: rgba($primary, 0.15);
+            font-weight: bold;
+            z-index: 0;
+        }
+    }
+
+    &#beauty {
+        background-color: white;
+        background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d6006e' fill-opacity='0.03'%3E%3Cpath d='M20 20h20v20H20V20zm40 0h20v20H60V20zM20 60h20v20H20V60zm40 0h20v20H60V60zM0 0h20v20H0V0zm40 0h20v20H40V0zm40 0h20v20H80V0zM0 40h20v20H0V40zm40 0h20v20H40V40zm40 0h20v20H80V40zM0 80h20v20H0V80zm40 0h20v20H40V80zm40 0h20v20H80V80z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        position: relative;
+
+        &::before {
+            content: "() => {}";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: monospace;
+            font-size: 60px;
+            color: rgba($primary, 0.15);
+            font-weight: bold;
+            z-index: 0;
+        }
+    }
+
+    &#clothes {
+        background-color: #f9f9f9;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='24' viewBox='0 0 88 24'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23d6006e' fill-opacity='0.03'%3E%3Cpath d='M13 0v8H8l5 6v4H0v-6h5l-5-6V0h13zm18 0v8h-5l5 6v4H18v-6h5l-5-6V0h13zm18 0v8h-5l5 6v4H36v-6h5l-5-6V0h13zm18 0v8h-5l5 6v4H54v-6h5l-5-6V0h13zm18 0v8h-5l5 6v4H72v-6h5l-5-6V0h13z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        position: relative;
+
+        &::before {
+            content: "/* */";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 60px;
+            color: rgba($primary, 0.15);
+            font-weight: bold;
+            z-index: 0;
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+// Product Cards
+.card {
+    border: none;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        padding: 1.5rem;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    .card-body {
+        .fw-bolder {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .btn-outline-dark {
+        border-radius: 4px;
+        padding: 0.5rem 1.2rem;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        border: none;
+        background-color: white;
+        color: $primary;
+        border: 1px solid $primary;
+
+        &:hover {
+            background-color: $primary;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        // New class for when the button is clicked (added to cart)
+        &.added-to-cart {
+            background-color: $primary;
+            color: white;
+            transform: translateY(0);
+            position: relative;
+
+            // Checkmark icon
+            &::after {
+                content: "✓";
+                margin-left: 5px;
+                font-weight: bold;
+            }
+
+            // Pulse animation
+            animation: addedToCartPulse 0.5s ease-in-out;
+
+            &:hover {
+                background-color: darken($primary, 10%);
+                transform: translateY(-1px);
+            }
+        }
+    }
+
+    // Tech-themed product badges
+    .tech-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: $primary;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 10;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        transform: rotate(2deg);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        letter-spacing: 0.5px;
+
+        &::before {
+            content: "</>";
+            margin-right: 5px;
+            font-family: monospace;
+            font-weight: 700;
+            opacity: 0.8;
+        }
+
+        &:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        // Badge variations
+        &.tech-badge-alt {
+            background-color: darken($primary, 10%);
+            transform: rotate(-2deg);
+            left: 10px;
+            right: auto;
+
+            &::before {
+                content: "{...}";
+            }
+
+            &:hover {
+                transform: rotate(0deg) scale(1.05);
+            }
+        }
+
+        &.tech-badge-code {
+            background-color: #333;
+            border-color: $primary;
+            top: 15px;
+            transform: rotate(0deg);
+
+            &::before {
+                content: "</>";
+                color: $primary;
+            }
+
+            &:hover {
+                background-color: #444;
+                transform: translateY(-2px);
+            }
+        }
+
+        &.tech-badge-new {
+            background: linear-gradient(
+                135deg,
+                $primary,
+                darken($primary, 15%)
+            );
+            padding: 0.3rem 0.8rem;
+
+            &::before {
+                content: "// ";
+            }
+
+            &:hover {
+                background: linear-gradient(
+                    135deg,
+                    darken($primary, 5%),
+                    darken($primary, 20%)
+                );
+            }
+        }
+    }
+
+    // Product description with tech twist
+    .tech-description {
+        font-size: 0.85rem;
+        color: $gray-600;
+        margin-top: 0.5rem;
+        font-style: italic;
+    }
+}
+
+// Modal styling
+.modal-content {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .modal-header {
+        background-color: $primary;
+        color: white;
+        border-bottom: none;
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .btn-close {
+            color: white;
+            filter: brightness(0) invert(1);
+        }
+    }
+
+    .table {
+        th {
+            font-weight: 600;
+            color: $gray-700;
+        }
+    }
+
+    .btn-primary {
+        background-color: $primary;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+
+        &:hover {
+            background-color: darken($primary, 10%);
+        }
+    }
+}
+
+// Footer styling
+footer {
+    background-color: #333;
+    color: white;
+    padding: 2rem 0;
+
+    a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+// Checkout page styling
+.feature-box {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 4px solid $primary;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h4 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+}
+
+// Form styling
+.form {
+    .bord {
+        border-radius: 12px;
+
+        h3 {
+            font-weight: 700;
+
+            .code-highlight {
+                background-color: $primary;
+                color: white;
+                padding: 0.2rem 0.5rem;
+                border-radius: 4px;
+                font-family: monospace;
+            }
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: $gray-700;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid $gray-300;
+            padding: 0.6rem 1rem;
+
+            &:focus {
+                border-color: $primary;
+                box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
+            }
+        }
+
+        .btn-primary {
+            background-color: $primary;
+            border: none;
+            border-radius: 4px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: darken($primary, 10%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+            }
+        }
+    }
+}
+
+// Section separator styles
+.section-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    margin: 0 auto;
+    max-width: 80%;
+
+    .separator-line {
+        flex-grow: 1;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            rgba($primary, 0),
+            rgba($primary, 0.5),
+            rgba($primary, 0)
+        );
+    }
+
+    .separator-icon {
+        padding: 0 1.5rem;
+        color: $primary;
+        font-size: 1.25rem;
+
+        i {
+            transform: rotate(15deg);
+            transition: transform 0.3s ease;
+        }
+
+        &:hover i {
+            transform: rotate(0deg);
+        }
+    }
+}
+
+// Responsive adjustments for separators
+@include media-breakpoint-down(md) {
+    .section-separator {
+        max-width: 90%;
+        padding: 1.5rem 0;
+
+        .separator-icon {
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+    }
+}
+
+// Add a keyframe animation for the "added to cart" effect
+@keyframes addedToCartPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+// Cart item remove button styling
+.remove-item {
+    padding: 0.1rem 0.3rem;
+    margin-left: 0.5rem;
+    transition: all 0.2s ease;
+    border: none;
+    background: transparent;
+
+    i {
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+    &:hover {
+        i {
+            transform: scale(1.2);
+            color: darken($primary, 10%) !important;
+        }
+    }
+
+    &:active {
+        i {
+            transform: scale(0.9);
+        }
+    }
+}

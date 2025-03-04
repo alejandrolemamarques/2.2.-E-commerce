@@ -1,67 +1,67 @@
 var products = [
     {
         id: 1,
-        name: 'cooking oil',
+        name: "Cooking oil",
         price: 10.5,
-        type: 'grocery',
+        type: "grocery",
         offer: {
             number: 3,
-            percent: 20
-        }
+            percent: 20,
+        },
     },
     {
         id: 2,
-        name: 'Pasta',
+        name: "Pasta",
         price: 6.25,
-        type: 'grocery'
+        type: "grocery",
     },
     {
         id: 3,
-        name: 'Instant cupcake mixture',
+        name: "Instant cupcake mixture",
         price: 5,
-        type: 'grocery',
+        type: "grocery",
         offer: {
             number: 10,
-            percent: 30
-        }
+            percent: 30,
+        },
     },
     {
         id: 4,
-        name: 'All-in-one',
+        name: "All-in-one",
         price: 260,
-        type: 'beauty'
+        type: "beauty",
     },
     {
         id: 5,
-        name: 'Zero Make-up Kit',
+        name: "Zero Make-up Kit",
         price: 20.5,
-        type: 'beauty'
+        type: "beauty",
     },
     {
         id: 6,
-        name: 'Lip Tints',
+        name: "Lip Tints",
         price: 12.75,
-        type: 'beauty'
+        type: "beauty",
     },
     {
         id: 7,
-        name: 'Lawn Dress',
+        name: "Lawn Dress",
         price: 15,
-        type: 'clothes'
+        type: "clothes",
     },
     {
         id: 8,
-        name: 'Lawn-Chiffon Combo',
+        name: "Lawn-Chiffon Combo",
         price: 19.99,
-        type: 'clothes'
+        type: "clothes",
     },
     {
         id: 9,
-        name: 'Toddler Frock',
+        name: "Toddler Frock",
         price: 9.99,
-        type: 'clothes'
-    }
-]
+        type: "clothes",
+    },
+];
 
 // Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
 var cart = [];
@@ -73,16 +73,85 @@ function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
 
+    // Get the button that was clicked
+    const clickedButton = event.target;
+
+    // Check if the button is already in the "added" state
+    // This prevents animation issues when clicking multiple times quickly
+    if (clickedButton.dataset.processing === "true") {
+        // Button is already being processed, just update the cart quantity
+        // Check if the product is already in the cart
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].id === id) {
+                cart[i].quantity++;
+
+                // Update the button text to show the new quantity
+                const currentQuantity = cart[i].quantity;
+                clickedButton.textContent = `Added (${currentQuantity})!`;
+
+                // Update the cart count
+                const cartCount = document.getElementById("count_product");
+                cartCount.textContent = cart.length;
+
+                return;
+            }
+        }
+
+        // If we get here, the item wasn't in the cart yet (shouldn't happen)
+        cart.push({ id, quantity: 1 });
+
+        // Update the cart count
+        const cartCount = document.getElementById("count_product");
+        cartCount.textContent = cart.length;
+
+        return;
+    }
+
+    // Mark the button as being processed
+    clickedButton.dataset.processing = "true";
+
+    // Store the original text for later restoration
+    const originalText = clickedButton.textContent.trim();
+
+    // Add the 'added-to-cart' class to the button
+    clickedButton.classList.add("added-to-cart");
+
     // Check if the product is already in the cart
+    let currentQuantity = 1;
+    let itemInCart = false;
+
     for (let i = 0; i < cart.length; i++) {
         if (cart[i].id === id) {
             cart[i].quantity++;
-            return;
+            currentQuantity = cart[i].quantity;
+            itemInCart = true;
+            break;
         }
     }
 
-    // Add the product to the cart
-    cart.push({ id, quantity: 1 });
+    // If not in cart, add it
+    if (!itemInCart) {
+        cart.push({ id, quantity: 1 });
+    }
+
+    // Update the button text to show quantity if more than 1
+    if (currentQuantity > 1) {
+        clickedButton.textContent = `Added (${currentQuantity})!`;
+    } else {
+        clickedButton.textContent = "Added!";
+    }
+
+    // Update the cart count
+    const cartCount = document.getElementById("count_product");
+    cartCount.textContent = cart.length;
+
+    // After a delay, remove the class and restore the original text
+    setTimeout(() => {
+        clickedButton.classList.remove("added-to-cart");
+        clickedButton.textContent = originalText;
+        // Reset the processing flag
+        clickedButton.dataset.processing = "false";
+    }, 1500);
 }
 
 // Exercise 2
@@ -153,16 +222,32 @@ function printCart() {
         const row = document.createElement("tr");
         row.innerHTML = `
             <th scope="row">${product.name}</th>
-            <td>${product.price}</td>
-            <td>${cartItem.quantity}</td>
-            <td>${subtotal}</td>
+            <td>$${product.price.toFixed(2)}</td>
+            <td>
+                ${cartItem.quantity}
+                <button class="btn btn-sm text-danger remove-item" onclick="removeItemAndUpdate(${
+                    product.id
+                })">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            </td>
+            <td>$${subtotal.toFixed(2)}</td>
         `;
         cartContainer.appendChild(row);
     });
 
-    totalPrice.textContent = calculateTotal();
+    totalPrice.textContent = calculateTotal().toFixed(2);
 }
 
+// Function to remove an item and update the cart display
+function removeItemAndUpdate(id) {
+    removeFromCart(id);
+    printCart();
+
+    // Update the cart count in the navbar
+    const cartCount = document.getElementById("count_product");
+    cartCount.textContent = cart.length;
+}
 
 // ** Nivell II **
 
