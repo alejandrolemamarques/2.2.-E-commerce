@@ -14545,4 +14545,30 @@ footer a:hover {
             transform: scale(1);
   }
 }
+
+.remove-item {
+  padding: 0.1rem 0.3rem;
+  margin-left: 0.5rem;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+}
+
+.remove-item i {
+  font-size: 0.9rem;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.remove-item:hover i {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  color: #a30054 !important;
+}
+
+.remove-item:active i {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
 /*# sourceMappingURL=custom-styles.css.map */
