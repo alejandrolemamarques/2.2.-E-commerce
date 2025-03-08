@@ -40,7 +40,7 @@ IT Academy Shop is a modern e-commerce platform that combines sleek design with 
 2. Navigate to the project directory:
 
     ```sh
-    cd IT-Academy-Shop
+    cd S2.2.-E-commerce
     ```
 
 3. Install dependencies:
@@ -68,17 +68,6 @@ IT Academy Shop is a modern e-commerce platform that combines sleek design with 
     -   `checkout.js` - Form validation and checkout process
 -   `images/` - Product and UI images
 -   `dino/` - Chrome Dino game easter egg
-
-## 🛒 Shopping Cart Functionality
-
-The shopping cart system includes the following features:
-
--   Add products to cart
--   Remove products from cart
--   Increase/decrease product quantities
--   Automatic calculation of subtotals
--   Special offers and discounts
--   Persistent cart data (stays between page refreshes)
 
 ## 🔐 Checkout Process
 
@@ -119,7 +108,3 @@ Contributions to improve the project are welcome! Follow these steps:
 3. Commit your changes: `git commit -m "Add feature: description"`
 4. Push to the branch: `git push origin feature/your-feature-name`
 5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the ISC License - see the LICENSE file for details.
