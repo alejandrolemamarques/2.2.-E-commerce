@@ -1,7 +1,7 @@
 // Load products from JSON file
 let products = [];
 
-fetch("https://raw.githubusercontent.com/alejandrolemamarques/S2.2.-E-commerce/main/data/products.json")
+fetch("https://raw.githubusercontent.com/alejandrolemamarques/2.2.-E-commerce/main/data/products.json")
     .then((response) => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
