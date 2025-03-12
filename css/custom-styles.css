@@ -13822,7 +13822,7 @@ fieldset:disabled .btn {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   padding: 0.75rem 0;
-  background-color: #d6006e !important;
+  background-color: #d6006e;
 }
 
 .navbar .navbar-brand {
@@ -13975,12 +13975,6 @@ fieldset:disabled .btn {
   color: white;
 }
 
-.navbar.sticky-top {
-  background-color: rgba(214, 0, 110, 0.98) !important;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
-
 @media (max-width: 991.98px) {
   .navbar {
     padding: 0.5rem 1rem;
@@ -14050,20 +14044,20 @@ fieldset:disabled .btn {
   }
 }
 
-header.bg-dark {
-  background-color: #d6006e !important;
+header {
+  background-color: #d6006e;
   position: relative;
   overflow: hidden;
 }
 
-header.bg-dark .container {
+header .container {
   position: relative;
   z-index: 1;
   text-align: center;
 }
 
-header.bg-dark .display-4 {
-  font-weight: 800 !important;
+header .display-4 {
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #ffffff;
@@ -14073,7 +14067,7 @@ header.bg-dark .display-4 {
   font-size: 2.5rem;
 }
 
-header.bg-dark .display-4.highlighted {
+header .display-4.highlighted {
   background-color: white;
   color: #d6006e;
   padding: 0.5rem 1.5rem;
@@ -14081,7 +14075,7 @@ header.bg-dark .display-4.highlighted {
   margin-bottom: 1.5rem;
 }
 
-header.bg-dark .lead {
+header .lead {
   font-size: 1.25rem;
   max-width: 600px;
   margin: 0 auto 1.5rem;
@@ -14089,7 +14083,7 @@ header.bg-dark .lead {
   line-height: 1.6;
 }
 
-header.bg-dark .code-highlight {
+header .code-highlight {
   background-color: white;
   color: #d6006e;
   padding: 0.2rem 0.5rem;
@@ -14098,7 +14092,7 @@ header.bg-dark .code-highlight {
   font-weight: 600;
 }
 
-header.bg-dark .btn-primary {
+header .btn-primary {
   background-color: white;
   color: #d6006e;
   border: none;
@@ -14109,7 +14103,7 @@ header.bg-dark .btn-primary {
   transition: all 0.3s ease;
 }
 
-header.bg-dark .btn-primary:hover {
+header .btn-primary:hover {
   background-color: #e6e6e6;
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);

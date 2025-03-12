@@ -88,7 +88,7 @@ $button-shadow: #333333; // Shadow color for the 3D button
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     padding: 0.75rem 0;
-    background-color: $primary !important;
+    background-color: $primary;
 
     .navbar-brand {
         font-weight: 800;
@@ -222,13 +222,6 @@ $button-shadow: #333333; // Shadow color for the 3D button
     }
 }
 
-// Add a sticky effect
-.navbar.sticky-top {
-    background-color: rgba($primary, 0.98) !important;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-}
-
 // Responsive adjustments
 @include media-breakpoint-down(lg) {
     .navbar {
@@ -296,8 +289,8 @@ $button-shadow: #333333; // Shadow color for the 3D button
 }
 
 // Header styles - IT Academy inspired
-header.bg-dark {
-    background-color: $header-bg !important;
+header {
+    background-color: $header-bg;
     position: relative;
     overflow: hidden;
 
@@ -308,7 +301,7 @@ header.bg-dark {
     }
 
     .display-4 {
-        font-weight: 800 !important;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1px;
         color: $header-text;

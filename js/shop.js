@@ -1,7 +1,9 @@
 // Load products from JSON file
 let products = [];
 
-fetch("https://raw.githubusercontent.com/alejandrolemamarques/2.2.-E-commerce/main/data/products.json")
+fetch(
+    "https://raw.githubusercontent.com/alejandrolemamarques/2.2.-E-commerce/main/data/products.json"
+)
     .then((response) => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -16,19 +18,37 @@ fetch("https://raw.githubusercontent.com/alejandrolemamarques/2.2.-E-commerce/ma
         console.error("Error loading products:", error);
         // Fallback products if loading fails
         products = [
-            {id: 1, name: "Cooking oil", price: 10.5},
-            {id: 2, name: "Pasta", price: 6.25},
-            {id: 3, name: "Instant cupcake mixture", price: 5}
+            { id: 1, name: "Cooking oil", price: 10.5 },
+            { id: 2, name: "Pasta", price: 6.25 },
+            { id: 3, name: "Instant cupcake mixture", price: 5 },
         ];
     });
 
 // Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
-var cart = [];
+let cart = [];
 
-var total = 0;
+let total = 0;
+
+// Load cart from sessionStorage when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+    const savedCart = sessionStorage.getItem("cart");
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        // Update the cart count in the navbar
+        const cartCount = document.getElementById("count_product");
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+});
+
+// Function to save cart to sessionStorage
+function saveCart() {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+}
 
 // Exercise 1
-function buy(id) {
+function buy(id, event) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array
 
@@ -52,6 +72,9 @@ function buy(id) {
                 const cartCount = document.getElementById("count_product");
                 cartCount.textContent = cart.length;
 
+                // Save cart to sessionStorage
+                saveCart();
+
                 return;
             }
         }
@@ -62,6 +85,9 @@ function buy(id) {
         // Update the cart count
         const cartCount = document.getElementById("count_product");
         cartCount.textContent = cart.length;
+
+        // Save cart to sessionStorage
+        saveCart();
 
         return;
     }
@@ -104,6 +130,9 @@ function buy(id) {
     const cartCount = document.getElementById("count_product");
     cartCount.textContent = cart.length;
 
+    // Save cart to sessionStorage
+    saveCart();
+
     // After a delay, remove the class and restore the original text
     setTimeout(() => {
         clickedButton.classList.remove("added-to-cart");
@@ -120,7 +149,10 @@ function cleanCart() {
 
     // Update the cart count in the navbar
     const cartCount = document.getElementById("count_product");
-    cartCount.textContent = cart.length;cartCount.textContent = cart.length;
+    cartCount.textContent = cart.length;
+
+    // Save cart to sessionStorage
+    saveCart();
 }
 
 // Exercise 3
@@ -210,6 +242,9 @@ function removeItemAndUpdate(id) {
     // Update the cart count in the navbar
     const cartCount = document.getElementById("count_product");
     cartCount.textContent = cart.length;
+
+    // Save cart to sessionStorage
+    saveCart();
 }
 
 // ** Nivell II **
@@ -241,6 +276,9 @@ function removeFromCart(id) {
             quantity: newQuantity,
         };
     }
+
+    // Save cart to sessionStorage after modification
+    saveCart();
 }
 
 function open_modal() {

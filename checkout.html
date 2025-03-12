@@ -29,14 +29,14 @@
     <body>
         <!-- Navigation-->
         <nav
-            class="navbar py-3 py-lg-0 navbar-light bg-light navbar-expand-lg"
+            class="navbar py-3 py-lg-0 navbar-expand-lg"
             id="navbar-example2"
         >
             <div class="container d-flex">
                 <a
                     class="navbar-brand"
                     href="javascript:void(0)"
-                    onclick="window.location.href = window.location.href.replace(/\/checkout\.html.*$/, '/')"
+                    onclick="window.location.href = '/'"
                     ><span class="highlighted">IT ACADEMY</span></a
                 >
                 <div class="d-flex flex-row order-lg-last align-items-center">
@@ -98,7 +98,7 @@
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark">
+        <header>
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center">
                     <h1 class="display-4 fw-bolder highlighted">Checkout</h1>
@@ -327,37 +327,43 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <div>
-                            <ul class="list"></ul>
-                            <div>
-                                <h3 class="text-center bill px-5">
-                                    Tech Shopping Cart
-                                </h3>
-                                <p class="text-center text-muted small mb-4">
-                                    Your digital basket of tech-enhanced
-                                    products
-                                </p>
-                            </div>
-                            <div class="text-center">
-                                <a
-                                    href="checkout.html"
-                                    class="btn btn-primary m-3"
-                                >
-                                    <i class="fas fa-code"></i> Checkout
-                                </a>
-                                <a
-                                    href="javascript:void(0)"
-                                    onclick="cleanCart()"
-                                    class="btn btn-outline-primary m-3"
-                                >
-                                    <i class="fas fa-trash-alt"></i> Clear Cart
-                                </a>
-                            </div>
-                            <p class="text-center text-muted small mt-3">
-                                Secure checkout with our encrypted payment
-                                system
-                            </p>
+                        <h3 class="text-center bill px-5">
+                            Tech Shopping Cart
+                        </h3>
+                        <p class="text-center text-muted small mb-4">
+                            Your digital basket of tech-enhanced products
+                        </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Qty.</th>
+                                    <th scope="col">
+                                        Total <small>(with discount)</small>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart_list"></tbody>
+                        </table>
+                        <div class="text-center fs-3">
+                            Total: $<span id="total_price">100</span>
                         </div>
+                        <div class="text-center">
+                            <a href="checkout.html" class="btn btn-primary m-3">
+                                <i class="fas fa-code"></i> Checkout
+                            </a>
+                            <a
+                                href="javascript:void(0)"
+                                onclick="cleanCart()"
+                                class="btn btn-outline-primary m-3"
+                            >
+                                <i class="fas fa-trash-alt"></i> Clear Cart
+                            </a>
+                        </div>
+                        <p class="text-center text-muted small mt-3">
+                            Secure checkout with our encrypted payment system
+                        </p>
                     </div>
                 </div>
             </div>
