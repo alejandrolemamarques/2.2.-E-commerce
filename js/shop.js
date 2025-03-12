@@ -1,7 +1,7 @@
 // Load products from JSON file
 let products = [];
 
-fetch("../products.json")
+fetch("../data/products.json")
     .then((response) => response.json())
     .then((data) => {
         products = data.products;
@@ -105,7 +105,7 @@ function buy(id) {
 function cleanCart() {
     cart = [];
     printCart();
-    
+
     // Update the cart count in the navbar
     const cartCount = document.getElementById("count_product");
     cartCount.textContent = cart.length;cartCount.textContent = cart.length;
