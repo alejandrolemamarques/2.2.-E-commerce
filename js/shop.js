@@ -1,13 +1,25 @@
 // Load products from JSON file
 let products = [];
 
-fetch("../data/products.json")
-    .then((response) => response.json())
+fetch("https://raw.githubusercontent.com/alejandrolemamarques/S2.2.-E-commerce/main/data/products.json")
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then((data) => {
         products = data.products;
+        console.log("Products loaded successfully:", products);
     })
     .catch((error) => {
         console.error("Error loading products:", error);
+        // Fallback products if loading fails
+        products = [
+            {id: 1, name: "Cooking oil", price: 10.5},
+            {id: 2, name: "Pasta", price: 6.25},
+            {id: 3, name: "Instant cupcake mixture", price: 5}
+        ];
     });
 
 // Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
